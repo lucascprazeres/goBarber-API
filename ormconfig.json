@@ -5,6 +5,10 @@
   "username": "postgres",
   "password": "docker",
   "database": "gostack_gobarber",
+  "uuidExtension": "pgcrypto",
+  "entities": [
+    "./src/models/*.ts"
+  ],
   "migrations": [
     "./src/database/migrations/*.ts"
   ],

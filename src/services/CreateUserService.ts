@@ -18,7 +18,7 @@ class CreateUserService {
     });
 
     if (findUserByEmail) {
-      throw Error('This email is already registered');
+      throw new Error('This email is already registered');
     }
 
     const hashedPassword = await hash(password, 8);

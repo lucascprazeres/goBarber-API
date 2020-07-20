@@ -46,9 +46,9 @@ describe('CreateUserService', () => {
       password: '123456',
     };
 
-    expect(authenticateUser.execute(nonRegisteredData)).rejects.toBeInstanceOf(
-      AppError,
-    );
+    await expect(
+      authenticateUser.execute(nonRegisteredData),
+    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not be able to authenticate with wrong password', async () => {
@@ -67,7 +67,7 @@ describe('CreateUserService', () => {
       password: '123456',
     });
 
-    expect(
+    await expect(
       authenticateUser.execute({
         email: 'johndoe@email.com',
         password: 'wrong-password',

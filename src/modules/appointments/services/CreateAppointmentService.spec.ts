@@ -31,8 +31,8 @@ describe('CreateAppointmentService', () => {
 
     await createAppointment.execute(appointmentData);
 
-    expect(createAppointment.execute(appointmentData)).rejects.toBeInstanceOf(
-      AppError,
-    );
+    await expect(
+      createAppointment.execute(appointmentData),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

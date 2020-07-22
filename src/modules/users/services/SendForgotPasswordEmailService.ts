@@ -40,24 +40,20 @@ class SendForgotPasswordEmailService {
       'forgot_password.hbs',
     );
 
-    try {
-      await this.mailProvider.sendMail({
-        to: {
+    await this.mailProvider.sendMail({
+      to: {
+        name: foundUser.name,
+        email: foundUser.email,
+      },
+      subject: '[GoBarber] Recuperação de senha',
+      templateData: {
+        file: forgotPasswordTemplate,
+        variables: {
           name: foundUser.name,
-          email: foundUser.email,
+          link: `http://localhost:3000/reset?token=${token}`,
         },
-        subject: '[GoBarber] Recuperação de senha',
-        templateData: {
-          file: forgotPasswordTemplate,
-          variables: {
-            name: foundUser.name,
-            link: `http://localhost:3000/reset?token=${token}`,
-          },
-        },
-      });
-    } catch (err) {
-      console.log(err);
-    }
+      },
+    });
   }
 }
 

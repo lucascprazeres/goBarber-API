@@ -31,7 +31,7 @@ class UpdateProfileService {
     email,
     oldPassword,
     password,
-  }: IRequest): Promise<User | undefined> {
+  }: IRequest): Promise<User> {
     const currentUser = await this.usersRepository.findById(userId);
 
     if (!currentUser) {

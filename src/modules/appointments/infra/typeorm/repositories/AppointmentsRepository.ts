@@ -3,6 +3,7 @@ import { getRepository, Repository, Raw } from 'typeorm';
 import IAppontmentsRepository from '@modules/appointments/repositories/iAppointmentsRepository';
 import ICreateAppointmentDTO from '@modules/appointments/dtos/iCreateAppointmentDTO';
 import IFindAllInMonthFromProviderDTO from '@modules/appointments/dtos/iFindAllInMonthFromProviderDTO';
+import IFindAllInDayFromProviderDTO from '@modules/appointments/dtos/iFindAllInDayFromProviderDTO';
 
 import Appointment from '../entities/Appointment';
 
@@ -11,6 +12,17 @@ class AppointmentsRepository implements IAppontmentsRepository {
 
   constructor() {
     this.ormRepository = getRepository(Appointment);
+  }
+
+  public async create({
+    provider_id,
+    date,
+  }: ICreateAppointmentDTO): Promise<Appointment> {
+    const appointment = this.ormRepository.create({ provider_id, date });
+
+    await this.ormRepository.save(appointment);
+
+    return appointment;
   }
 
   public async findByDate(date: Date): Promise<Appointment | undefined> {
@@ -33,7 +45,29 @@ class AppointmentsRepository implements IAppontmentsRepository {
         provider_id: providerId,
         date: Raw(
           dateFieldName =>
-            `to_char(${dateFieldName}, 'MM-YYYY') = ${parsedMonth}-${year}`,
+            `to_char(${dateFieldName}, 'MM-YYYY') = '${parsedMonth}-${year}'`,
+        ),
+      },
+    });
+
+    return appointments;
+  }
+
+  public async findAllInDayFromProvider({
+    providerId,
+    day,
+    month,
+    year,
+  }: IFindAllInDayFromProviderDTO): Promise<Appointment[]> {
+    const parsedDay = this.getTwoDigitsVersionOf(day);
+    const parsedMonth = this.getTwoDigitsVersionOf(month);
+
+    const appointments = await this.ormRepository.find({
+      where: {
+        provider_id: providerId,
+        date: Raw(
+          dateFieldName =>
+            `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,
         ),
       },
     });
@@ -43,17 +77,6 @@ class AppointmentsRepository implements IAppontmentsRepository {
 
   private getTwoDigitsVersionOf(num: number): string {
     return String(num).padStart(2, '0');
-  }
-
-  public async create({
-    provider_id,
-    date,
-  }: ICreateAppointmentDTO): Promise<Appointment> {
-    const appointment = this.ormRepository.create({ provider_id, date });
-
-    await this.ormRepository.save(appointment);
-
-    return appointment;
   }
 }
 

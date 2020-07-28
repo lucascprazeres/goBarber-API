@@ -3,8 +3,6 @@ import { getHours, isAfter } from 'date-fns';
 
 import IAppointmentsRepository from '../repositories/iAppointmentsRepository';
 
-// import User from '@/users/infra/typeorm/entities/User';
-
 interface IRequest {
   providerId: string;
   day: number;

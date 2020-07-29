@@ -26,6 +26,7 @@
     "rules": {
       "camelcase": "off",
       "no-console": "off",
+      "@typescript-eslint/ban-types": "off",
       "no-useless-constructor": "off",
       "prettier/prettier": "error",
       "@typescript-eslint/camelcase": "off",

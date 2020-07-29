@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 
 import { container } from 'tsyringe';
 
+import getExposableAttributesFrom from '@shared/utils/getExposableAttributesFrom';
+
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 
 export default class UserAvatarController {
@@ -13,8 +15,8 @@ export default class UserAvatarController {
       avatarFilename: request.file.filename,
     });
 
-    delete user.password;
+    const presentableUserData = getExposableAttributesFrom(user);
 
-    return response.json(user);
+    return response.json(presentableUserData);
   }
 }

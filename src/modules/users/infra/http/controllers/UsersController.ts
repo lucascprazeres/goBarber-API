@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 
 import { container } from 'tsyringe';
 
+import getExposableAttributesFrom from '@shared/utils/getExposableAttributesFrom';
+
 import CreateUserService from '@modules/users/services/CreateUserService';
 
 export default class UsersController {
@@ -16,8 +18,8 @@ export default class UsersController {
       password,
     });
 
-    delete user.password;
+    const presentableUserData = getExposableAttributesFrom(user);
 
-    return response.json(user);
+    return response.json(presentableUserData);
   }
 }

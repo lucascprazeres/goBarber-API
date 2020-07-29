@@ -4,4 +4,6 @@ coverage/
 .idea/
 build/
 tmp/*
+.env
 !tmp/.gitkeep
+ormconfig.json

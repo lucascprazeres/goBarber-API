@@ -11,6 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@types/ioredis": "^4.17.2",
     "aws-sdk": "^2.724.0",
     "bcryptjs": "^2.4.3",
     "celebrate": "^12.1.2",
@@ -21,6 +22,7 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "handlebars": "^4.7.6",
+    "ioredis": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mime": "^2.4.6",
     "mongodb": "^3.5.9",

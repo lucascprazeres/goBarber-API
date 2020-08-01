@@ -1,19 +1,23 @@
 import AppError from '@shared/errors/AppError';
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
 import CreateAppointmentService from './CreateAppointmentService';
 
 let appointmentsRepository: FakeAppointmentsRepository;
 let notificationsRepository: FakeNotificationsRepository;
+let cacheProvider: FakeCacheProvider;
 let createAppointment: CreateAppointmentService;
 
 describe('CreateAppointmentService', () => {
   beforeEach(() => {
     appointmentsRepository = new FakeAppointmentsRepository();
     notificationsRepository = new FakeNotificationsRepository();
+    cacheProvider = new FakeCacheProvider();
     createAppointment = new CreateAppointmentService(
       appointmentsRepository,
       notificationsRepository,
+      cacheProvider,
     );
 
     // sets 'now' as 05/10/2020 12AM

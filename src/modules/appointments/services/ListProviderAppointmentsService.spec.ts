@@ -1,14 +1,18 @@
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeAppointmentsRespository from '../repositories/fakes/FakeAppointmentsRepository';
 import ListProviderAppointmentsService from './ListProviderAppointmentsService';
 
 let appointmentsRespository: FakeAppointmentsRespository;
 let listProviderAppointments: ListProviderAppointmentsService;
+let cacheProvider: FakeCacheProvider;
 
 describe('ListProviderAppointmentsService', () => {
   beforeEach(() => {
     appointmentsRespository = new FakeAppointmentsRespository();
+    cacheProvider = new FakeCacheProvider();
     listProviderAppointments = new ListProviderAppointmentsService(
       appointmentsRespository,
+      cacheProvider,
     );
 
     jest.spyOn(Date, 'now').mockImplementationOnce(() => {

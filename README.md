@@ -151,5 +151,8 @@
   ```
 </p>
 
+<h2>📝 Licença</h2>
+<p>Esse projeto se encontra sob a licença <strong>MIT</strong>. Para mais informações, acesse o arquivo <strong>LICENSE</strong>.</p>
+
 <hr>
 <p align=center>Made with 💜 by <a href="https://www.linkedin.com/in/lucas-prazeres/">Lucas dos Prazeres</a><p>

@@ -1,9 +1,7 @@
 import { injectable, inject } from 'tsyringe';
-import { getDaysInMonth, getDate } from 'date-fns';
+import { getDaysInMonth, getDate, isAfter, endOfDay } from 'date-fns';
 
 import IAppointmentsRepository from '../repositories/iAppointmentsRepository';
-
-// import User from '@/users/infra/typeorm/entities/User';
 
 interface IRequest {
   providerId: string;
@@ -44,13 +42,17 @@ class ListProvidersMonthAvailabilityService {
     );
 
     const availability = daysInMonthArray.map(day => {
+      const searchedDaysEnd = endOfDay(new Date(year, month - 1, day));
+
       const appointmentsInCurrentDay = appointments.filter(appointment => {
         return getDate(appointment.date) === day;
       });
 
       return {
         day,
-        available: appointmentsInCurrentDay.length < 10,
+        available:
+          isAfter(searchedDaysEnd, new Date()) &&
+          appointmentsInCurrentDay.length < 10,
       };
     });
 

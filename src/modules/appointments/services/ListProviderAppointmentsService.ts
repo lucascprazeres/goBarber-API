@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import getExposableAttributesFrom from '@shared/utils/getExposableAttributesFrom';
 import Appointment from '../infra/typeorm/entities/Appointment';
 import IAppointmentsRepository from '../repositories/iAppointmentsRepository';
 
@@ -43,7 +44,10 @@ class ListProviderAppointmentsService {
         },
       );
 
-      await this.cacheProvider.save(cacheKey, appointments);
+      await this.cacheProvider.save(
+        cacheKey,
+        getExposableAttributesFrom(appointments),
+      );
     }
 
     return appointments;

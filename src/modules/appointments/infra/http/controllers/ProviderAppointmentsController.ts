@@ -11,11 +11,11 @@ export default class AppointmentsController {
     const providerId = request.user.id;
     const { day, month, year } = request.query;
 
-    const listPrvoiderAppointments = container.resolve(
+    const listProviderAppointments = container.resolve(
       ListProviderAppointmentsService,
     );
 
-    const appointments = await listPrvoiderAppointments.execute({
+    const appointments = await listProviderAppointments.execute({
       providerId,
       day: Number(day),
       month: Number(month),

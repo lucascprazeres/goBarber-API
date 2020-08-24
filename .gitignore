@@ -2,7 +2,7 @@ node_modules/
 coverage/
 .vscode/
 .idea/
-build/
+dist/
 tmp/*
 .env
 !tmp/.gitkeep
